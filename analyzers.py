@@ -8,13 +8,11 @@ import dataclasses
 from latexify import ast_utils, exceptions
 
 
-@dataclasses.dataclass(frozen=True, eq=False)
 class RangeInfo:
     """Information of the range function."""
 
     # Argument subtrees. These arguments could be shallow copies of the original
     # subtree.
-    start: ast.expr
     stop: ast.expr
     step: ast.expr
 
@@ -50,7 +48,6 @@ def analyze_range(node: ast.Call) -> RangeInfo:
         stop = node.args[0]
         step = ast_utils.make_constant(1)
     else:
-        start = node.args[0]
         stop = node.args[1]
         step = node.args[2] if num_args == 3 else ast_utils.make_constant(1)
 
