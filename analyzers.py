@@ -14,7 +14,6 @@ class RangeInfo:
     # Argument subtrees. These arguments could be shallow copies of the original
     # subtree.
     stop: ast.expr
-    step: ast.expr
 
     # Integer representation of each argument, when it is possible.
     start_int: int | None
@@ -37,7 +36,6 @@ def analyze_range(node: ast.Call) -> RangeInfo:
     if not (
         isinstance(node.func, ast.Name)
         and node.func.id == "range"
-        and 1 <= len(node.args) <= 3
     ):
         raise exceptions.LatexifySyntaxError("Unsupported AST for analyze_range.")
 
